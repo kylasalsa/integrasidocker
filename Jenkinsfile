@@ -22,9 +22,9 @@ pipeline {
     steps {
         script {
             withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                bat 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
-                bat 'docker push kylasalsa/keladockercc:${BUILD_NUMBER}'
-                bat 'docker push kylasalsa/keladockercc:latest'
+                sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                sh 'docker push kylasalsa/keladockercc:${BUILD_NUMBER}'
+                sh 'docker push kylasalsa/keladockercc:latest'
             }
         }
     }
