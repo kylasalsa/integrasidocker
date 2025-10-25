@@ -19,16 +19,16 @@ pipeline {
       }
     }
     stage('Push Docker Image') {
-      steps {
+    steps {
         script {
-          docker.withRegistry(REGISTRY, REGISTRY_CREDENTIALS) {
-            def tag = "${IMAGE_NAME}:${env.BUILD_NUMBER}"
-            docker.image(tag).push()
-            docker.image(tag).push('latest')
-          }
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                bat 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                bat 'docker push kylasalsa/keladockercc:${BUILD_NUMBER}'
+                bat 'docker push kylasalsa/keladockercc:latest'
+            }
         }
-      }
     }
+}
   }
   post {
     always {
