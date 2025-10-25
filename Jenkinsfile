@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    IMAGE_NAME = 'kylasalsa/simple-app'
+    IMAGE_NAME = 'kylasalsa/keladockercc'
     REGISTRY = 'https://index.docker.io/v1/'
     REGISTRY_CREDENTIALS = 'dockerhub-credentials'
   }
